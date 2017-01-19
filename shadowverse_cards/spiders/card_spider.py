@@ -32,7 +32,7 @@ class CardSpider(scrapy.Spider):
         # parse details
         # parse attrs
 
-    def parse_name(self, response):
+    def parse_card_name(self, response):
         return response.css('h1.card-main-title::text').extract_first().strip()
 
     def parse_details(self, response):
@@ -49,7 +49,8 @@ class CardSpider(scrapy.Spider):
             return parse_creature()
 
     def parse_card_text(self, selector):
-        assert type(card_obj) == scrapy.selector.unified.SelectorList
+        print(type(selector))
+        assert type(selector) == scrapy.http.response.html.HtmlResponse
         return {
             'text': selector.css('p.card-content-skill::text').extract_first().strip()
         }
